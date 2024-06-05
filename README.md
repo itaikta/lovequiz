@@ -10,4 +10,6 @@ You will now make a new master list to reflect to kind of spouse that will be go
 1. First copy list A & B below. 
 2. From list C, figure out which qualities will help you to balance out your challenging traits and add them to this list. 
 3. Add qualities from D and E that have not been previously listed.
-4. This is the most important part… PRIORITIZE YOUR LIST FROM 1 TO 10. If you find a person that has many of the top 10, especially the first 3, MARRY THEM!
+4. This is the most important part… PRIORITIZE YOUR LIST FROM 1 TO 10. 
+
+If you find a person that has many of the top 10, especially the first 3, MARRY THEM!

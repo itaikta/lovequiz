@@ -3,12 +3,81 @@
 
 <head>
     <meta charset="utf-8">
-    <title></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Soulmate Trait Quiz ♥♥</title>
     <link href="style.css" rel="stylesheet" />
 </head>
 
 <body>
-    <h1>Henlo, world!</h1>
+    <div id="content">
+        <h1>Soulmate Trait Quiz ♥♥</h1>
+
+        <!-- One "tab" for each step in the form: -->
+        <div class="tab">
+            <p>Get real clarity on who will make great spouse for you! Just spend 30 minutes filling out this worksheet
+                and you will discover many new characteristics to look for in a spouse that you may not have previously
+                considered. This is how you will Merit Your Basheret.</p>
+        </div>
+
+        <div class="tab">Describe 5 or more qualities that you are looking for in a spouse
+            <p><input oninput="this.className = ''"></p>
+            <p><input oninput="this.className = ''"></p>
+            <p><input oninput="this.className = ''"></p>
+            <p><input oninput="this.className = ''"></p>
+            <p><input oninput="this.className = ''"></p>
+        </div>
+        <div class="tab">Describe 5 or more of your positive qualities
+            <p><input oninput="this.className = ''"></p>
+            <p><input oninput="this.className = ''"></p>
+            <p><input oninput="this.className = ''"></p>
+            <p><input oninput="this.className = ''"></p>
+            <p><input oninput="this.className = ''"></p>
+        </div>
+        <div class="tab">Describe 5 or more of your <b>challenging</b> qualities
+            <p><input oninput="this.className = ''"></p>
+            <p><input oninput="this.className = ''"></p>
+            <p><input oninput="this.className = ''"></p>
+            <p><input oninput="this.className = ''"></p>
+            <p><input oninput="this.className = ''"></p>
+        </div>
+        <div class="tab">Think of three happily married couples that you cherish and list everything you admire about
+            their marriage
+            <p><input oninput="this.className = ''"></p>
+            <p><input oninput="this.className = ''"></p>
+            <p><input oninput="this.className = ''"></p>
+            <p><input oninput="this.className = ''"></p>
+            <p><input oninput="this.className = ''"></p>
+        </div>
+        <div class="tab">Think of a positive role model in your life and list the qualities that you admire. This can be
+            a grandparent, friend, teacher, or even someone you follow on social media
+            <p><input oninput="this.className = ''"></p>
+            <p><input oninput="this.className = ''"></p>
+            <p><input oninput="this.className = ''"></p>
+            <p><input oninput="this.className = ''"></p>
+            <p><input oninput="this.className = ''"></p>
+        </div>
+
+        <div class="tab">Alright, now here are you challenging qualities:</br>
+            <div class="traitList" id="challenging"></div>
+            <p>Please select which of these qualities below balance out your challenging traits:</p>
+            <div class="traitList" id="desired"></div>
+        </div>
+        <div class="tab">This is the most important part… PRIORITIZE YOUR LIST
+            <div id="priorityList"></div>
+        </div>
+        <div class="tab">If you find a person that has many of the top 10, especially the first 3, MARRY THEM!</div>
+
+        <div style="overflow:auto;">
+            <div style="float:right;">
+                <button type="button" id="prevBtn" onclick="navigateTab(-1)">Previous</button>
+                <button type="button" id="nextBtn" onclick="navigateTab(1)">Begin!</button>
+            </div>
+        </div>
+    </div>
 </body>
+
+<footer>
+    <script src="quiz.js"></script>
+</footer>
 
 </html>
