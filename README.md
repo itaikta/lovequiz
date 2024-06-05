@@ -6,6 +6,7 @@ Get real clarity on who will make great spouse for you! Just spend 30 minutes fi
 * Think of up to three happily married couples that you cherish and list everything you admire about their marriages.
 * List  at least 3 or more of your challenging qualities.
 * Brainstorm and list for yourself 5 or more qualities that you are looking for in a spouse.
+
 You will now make a new master list to help you re-prioritize who you will make a good spouse for you.
 1. Copy list B below. 
 2. Copy list C below
