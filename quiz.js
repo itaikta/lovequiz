@@ -14,14 +14,32 @@ const qualities = {
     balancing: []
 };
 
+// The index of this array corresponds to the method that will be called to process the data from the current tab
+const processTab = [
+    null, // The first page is just the intro
+    (tab) => populateArr(tab, qualities.desired),
+    (tab) => populateArr(tab, qualities.your),
+    (tab) => populateArr(tab, qualities.challenging),
+    (tab) => populateArr(tab, qualities.married),
+    (tab) => populateArr(tab, qualities.roleModel),
+    
+]
 
-let currentTabindex = 0; // Current tab is set to be the first tab (0)
-showTab(currentTabindex); // Display the current tab
+let currentTabIndex = 0; // Current tab is set to be the first tab (0)
+showTab(currentTabIndex); // Display the current tab
 
+// This function will display the specified tab of the form
 function showTab(tabIndex) {
-    // This function will display the specified tab of the form...
     const tabs = document.getElementsByClassName("tab");
-    tabs[tabIndex].style.display = "block";
+    const currentTab = tabs[tabIndex];
+    currentTab.style.display = "block"; // Activate tab
+
+    if (currentTab.id === "balance") {
+        setupBalance(currentTab); // TODO
+    }
+    else if (currentTab.id === "priorities") {
+        setupPriorities(currentTab) // TODO
+    }
     
     // update the Previous/Next buttons:
     const nextButton = document.getElementById("nextBtn");
@@ -40,39 +58,40 @@ function showTab(tabIndex) {
     }
 }
 
-function navigateTab(action) { // When action == 1, go to next tab. When Action == -1, go to previous
-    // This function will figure out which tab to display
+function navigateTab(action) { // action: 1 for next tab, -1 for previous tab
     const tabs = document.getElementsByClassName("tab");
-    // Exit the function if any field in the current tab is invalid:
-    if (action === 1 && !validateForm()) return false;
-    // Hide the current tab:
-    tabs[currentTabindex].style.display = "none";
-    // Increase or decrease the current tab
-    currentTabindex += action;
-    // if you have reached the end of the form...
-    if (currentTabindex >= tabs.length) {
-        // ... the form gets submitted:
-        document.getElementById("regForm").submit();
-        return false;
-    }
-    // Otherwise, display the correct tab:
-    showTab(currentTabindex);
+    const currentTab = tabs[currentTabIndex];
+
+    if (action === 1 && !validateForm(currentTab)) return;
+    
+    const processFun = processTab[currentTabIndex];
+    if (processFun) processFun(currentTab);
+    
+    currentTab.style.display = "none"; // Deactivate tab
+
+    // Display the upcoming tab:
+    currentTabIndex += action;
+    showTab(currentTabIndex);
 }
 
-// This function deals with validation of the form fields
-function validateForm() {
+// Validation of the form fields
+function validateForm(tab) {
     let valid = true;
-    const tabs = document.getElementsByClassName("tab");
-    const currentTabInputs = tabs[currentTabindex].getElementsByTagName("input");
-    // A loop that checks every input field in the current tab:
-    for (let i = 0; i < currentTabInputs.length; i++) {
-        // If a field is empty...
-        if (currentTabInputs[i].value == "") {
-            // add an "invalid" class to the field:
-            currentTabInputs[i].className += " invalid";
-            // and set the current valid status to false
+    const inputs = tab.getElementsByTagName("input");
+    
+    for (const input of inputs) {
+        if (input.value == "") { // Field is empty
+            input.className += " invalid"; // Sets the red background
             valid = false;
         }
     }
-    return valid; // return the valid status
+
+    return valid;
+}
+
+function populateArr(tab, arr) {
+    const inputs = tab.getElementsByTagName("input");
+    for (const input of inputs) {
+        arr.push(input.value);
+    }
 }
