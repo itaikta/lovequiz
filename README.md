@@ -1,16 +1,13 @@
 # The Quiz to Discover Your Soulmate
 Get real clarity on who will make great spouse for you! Just spend 30 minutes filling out this worksheet and you will discover many new characteristics to look for in a spouse that you may not have previously considered. This is how you will Merit Your Basheret.
-* If you could live with any animal in the world, what would it be?
-* List up to 3 positive qualities of your animal.
-* Think of a positive role model in your life and list the qualities that you admire. This can be a grandparent, friend, teacher, or even someone you follow on social media.
-* Think of up to three happily married couples that you cherish and list everything you admire about their marriages.
-* List  at least 3 or more of your challenging qualities.
-* Brainstorm and list for yourself 5 or more qualities that you are looking for in a spouse.
+* [A] Describe 5 or more qualities that you are looking for in a spouse.
+* [B] Describe 5 or more of your positive qualities.
+* [C] Describe 5 or more of your challenging qualities.
+* [D] Think of three happily married couples that you cherish and list everything you admire about their marriage.
+* [E] Think of a positive role model in your life and list the qualities that you admire. This can be a grandparent, friend, teacher, or even someone you follow on social media.
 
-You will now make a new master list to help you re-prioritize who you will make a good spouse for you.
-1. Copy list B below. 
-2. Copy list C below
-3. Copy list D below
-4. From list E, list which qualities will help you to balance out your challenging qualities and add to list. 
-5. Copy list F below
-6. This is the most important part…PRIORITIZE YOUR LIST FROM 1 TO 10. If you find a person that has many of the top 10, especially the first 3 or more, you should consider marrying them. Not one person will meet all the ten items on your list.
+You will now make a new master list to reflect to kind of spouse that will be good for you. 
+1. First copy list A & B below. 
+2. From list C, figure out which qualities will help you to balance out your challenging traits and add them to this list. 
+3. Add qualities from D and E that have not been previously listed.
+4. This is the most important part… PRIORITIZE YOUR LIST FROM 1 TO 10. If you find a person that has many of the top 10, especially the first 3, MARRY THEM!
