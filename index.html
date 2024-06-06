@@ -66,20 +66,20 @@
                 <tr>
                     <td>1</td><td>2</td><td>3</td><td>4</td><td>5</td><td>6</td><td>7</td><td>8</td><td>9</td><td>10</td>
                 </tr>
-                <tr id="listRow">
+                <tr id="priorityList">
                     <td><i>[EMPTY]</i></td><td><i>[EMPTY]</i></td><td><i>[EMPTY]</i></td><td><i>[EMPTY]</i></td><td><i>[EMPTY]</i></td><td><i>[EMPTY]</i></td><td><i>[EMPTY]</i></td><td><i>[EMPTY]</i></td><td><i>[EMPTY]</i></td><td><i>[EMPTY]</i></td>
                 </tr>
-                <tr id="buttonRow">
-                    <td><button type="button">&gt;</button></td>
-                    <td><button type="button">&lt;</button><button type="button">&gt;</button></td>
-                    <td><button type="button">&lt;</button><button type="button">&gt;</button></td>
-                    <td><button type="button">&lt;</button><button type="button">&gt;</button></td>
-                    <td><button type="button">&lt;</button><button type="button">&gt;</button></td>
-                    <td><button type="button">&lt;</button><button type="button">&gt;</button></td>
-                    <td><button type="button">&lt;</button><button type="button">&gt;</button></td>
-                    <td><button type="button">&lt;</button><button type="button">&gt;</button></td>
-                    <td><button type="button">&lt;</button><button type="button">&gt;</button></td>
-                    <td><button type="button">&lt;</button></td>
+                <tr>
+                    <td><button type="button" onclick="shiftOrder(0, 1)">&gt;</button></td>
+                    <td><button type="button" onclick="shiftOrder(1, -1)">&lt;</button><button type="button" onclick="shiftOrder(1, 1)">&gt;</button></td>
+                    <td><button type="button" onclick="shiftOrder(2, -1)">&lt;</button><button type="button" onclick="shiftOrder(2, 1)">&gt;</button></td>
+                    <td><button type="button" onclick="shiftOrder(3, -1)">&lt;</button><button type="button" onclick="shiftOrder(3, 1)">&gt;</button></td>
+                    <td><button type="button" onclick="shiftOrder(4, -1)">&lt;</button><button type="button" onclick="shiftOrder(4, 1)">&gt;</button></td>
+                    <td><button type="button" onclick="shiftOrder(5, -1)">&lt;</button><button type="button" onclick="shiftOrder(5, 1)">&gt;</button></td>
+                    <td><button type="button" onclick="shiftOrder(6, -1)">&lt;</button><button type="button" onclick="shiftOrder(6, 1)">&gt;</button></td>
+                    <td><button type="button" onclick="shiftOrder(7, -1)">&lt;</button><button type="button" onclick="shiftOrder(7, 1)">&gt;</button></td>
+                    <td><button type="button" onclick="shiftOrder(8, -1)">&lt;</button><button type="button" onclick="shiftOrder(8, 1)">&gt;</button></td>
+                    <td><button type="button" onclick="shiftOrder(9, -1)">&lt;</button></td>
                 </tr>
             </table>
         </div>
@@ -91,6 +91,8 @@
                 <button class="navButton" type="button" id="nextBtn" onclick="navigateTab(1)">Begin!</button>
             </div>
         </div>
+
+        <p>Quiz designed by Coach Ratner, SHLITA and brought to life by Itai Ktalav</p>
     </div>
 </body>
 

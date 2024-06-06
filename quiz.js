@@ -24,7 +24,7 @@ const processTab = [
     (tab) => populateArr(tab, qualities.challenging),
     (tab) => populateArr(tab, qualities.married),
     (tab) => populateArr(tab, qualities.roleModel),
-    
+
 ]
 
 let currentTabIndex = 0; // Current tab is set to be the first tab (0)
@@ -32,7 +32,6 @@ showTab(currentTabIndex); // Display the current tab
 
 // This function will display the specified tab of the form
 function showTab(tabIndex) {
-    console.log("Showing tab #", tabIndex);
     const tabs = document.getElementsByClassName("tab");
     const currentTab = tabs[tabIndex];
     currentTab.style.display = "block"; // Activate tab
@@ -40,10 +39,7 @@ function showTab(tabIndex) {
     if (currentTab.id === "balance") {
         setupBalance(currentTab);
     }
-    else if (currentTab.id === "priorities") {
-        setupPriorities(currentTab); // TODO
-    }
-    
+
     // update the Previous/Next buttons:
     const nextButton = document.getElementById("nextBtn");
     const prevButton = document.getElementById("prevBtn");
@@ -66,10 +62,10 @@ function navigateTab(action) { // action: 1 for next tab, -1 for previous tab
     const currentTab = tabs[currentTabIndex];
 
     if (action === 1 && !validateForm(currentTab)) return;
-    
+
     const processFun = processTab[currentTabIndex];
     if (processFun) processFun(currentTab);
-    
+
     currentTab.style.display = "none"; // Deactivate tab
 
     // Display the upcoming tab:
@@ -81,7 +77,7 @@ function navigateTab(action) { // action: 1 for next tab, -1 for previous tab
 function validateForm(tab) {
     let valid = true;
     const inputs = tab.getElementsByTagName("input");
-    
+
     for (const input of inputs) {
         if (input.value == "") { // Field is empty
             input.className += " invalid"; // Sets the red background
@@ -97,7 +93,6 @@ function populateArr(tab, arr) {
     for (const input of inputs) {
         arr.push(input.value);
     }
-    console.log(JSON.stringify(arr));
 }
 
 function setupBalance(currentTab) {
@@ -111,7 +106,7 @@ function setupBalance(currentTab) {
 
     const balanceDiv = currentTab.querySelector("#balanced");
     let allOtherQualities = qualities.desired.concat(qualities.married, qualities.roleModel, qualities.your);
-    console.log("All qualities:", JSON.stringify(allOtherQualities));
+
     for (const challengeStr of allOtherQualities) {
         const qualityButton = document.createElement("button");
         qualityButton.type = "button";
@@ -122,10 +117,62 @@ function setupBalance(currentTab) {
     }
 }
 
-function toggleQualitySelect(qualityButton) { // TODO
-    console.log("buttonclick:", qualityButton.innerText);
+function toggleQualitySelect(qualityButton) {
+    let firstEmptyIndex = 10; // Will remain 10 if the list is full
+    let indexOfQuality = -1;
+
+    const quality = qualityButton.innerText;
+    const priorityRow = document.getElementById("priorityList");
+    const qualityRow = document.getElementById("balanced");
+
+    for (let i = 0; i < priorityRow.children.length; i++) {
+        const currentTd = priorityRow.children[i];
+        if (currentTd.innerText.includes("[EMPTY]")) {
+            firstEmptyIndex = i;
+            break; // I think this is more readable than putting the above condition in the loop...
+        }
+
+        if (currentTd.innerText === quality) {
+            indexOfQuality = i;
+        }
+    }
+
+    if (indexOfQuality === -1) { // If it doesn't exist in the priority row, then add it
+        console.log("Adding:", quality);
+        priorityRow.children[firstEmptyIndex].innerText = quality;
+        qualityButton.className = "qualityListItem qualityActive";
+
+        if (firstEmptyIndex === 9) { // If the list is full, disable buttons so more can't be added
+            for (const qualityButtonI of qualityRow.children) {
+                if (qualityButtonI.className.includes("qualitySelection")) {
+                    qualityButtonI.disabled = true;
+                }
+            }
+        }
+    }
+    else { // If it does exist, remove it and bubble everything after it down
+        console.log("Removing from index", indexOfQuality)
+        const iTag = document.createElement("i");
+        iTag.innerText = "[EMPTY]";
+        priorityRow.children[indexOfQuality].innerHTML = ""; // bye bye
+        priorityRow.children[indexOfQuality].appendChild(iTag);
+        qualityButton.className = "qualityListItem qualitySelection";
+
+        for (const qualityButtonI of qualityRow.children) {
+            qualityButtonI.disabled = false;
+        }
+
+        if (indexOfQuality < 9) { // If this is the last one, then we don't need to bubble anything down
+            for (let i = indexOfQuality; i < firstEmptyIndex - 1; i++) {
+                const temp = priorityRow.children[i].innerHTML;
+                console.log(i);
+                priorityRow.children[i].innerHTML = priorityRow.children[i + 1].innerHTML;
+                priorityRow.children[i + 1].innerHTML = temp;
+            }
+        }
+    }
 }
 
-function setupPriorities(currentTab) { // TODO
-    console.log("PRIORITIES");
+function shiftOrder(index, step) { // TODO 
+    console.log("shifting index", index, "by", step, "position");
 }
