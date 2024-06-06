@@ -5,6 +5,8 @@
 *
 */
 
+// Globals are so much fun. Gotta love JS
+
 const qualities = {
     desired: [],
     your: [],
@@ -30,15 +32,16 @@ showTab(currentTabIndex); // Display the current tab
 
 // This function will display the specified tab of the form
 function showTab(tabIndex) {
+    console.log("Showing tab #", tabIndex);
     const tabs = document.getElementsByClassName("tab");
     const currentTab = tabs[tabIndex];
     currentTab.style.display = "block"; // Activate tab
 
     if (currentTab.id === "balance") {
-        setupBalance(currentTab); // TODO
+        setupBalance(currentTab);
     }
     else if (currentTab.id === "priorities") {
-        setupPriorities(currentTab) // TODO
+        setupPriorities(currentTab); // TODO
     }
     
     // update the Previous/Next buttons:
@@ -94,4 +97,35 @@ function populateArr(tab, arr) {
     for (const input of inputs) {
         arr.push(input.value);
     }
+    console.log(JSON.stringify(arr));
+}
+
+function setupBalance(currentTab) {
+    const challengeDiv = currentTab.querySelector("#challenging");
+    for (const challengeStr of qualities.challenging) {
+        const challengeElement = document.createElement("div");
+        challengeElement.className = "qualityListItem";
+        challengeElement.innerText = challengeStr;
+        challengeDiv.appendChild(challengeElement);
+    }
+
+    const balanceDiv = currentTab.querySelector("#balanced");
+    let allOtherQualities = qualities.desired.concat(qualities.married, qualities.roleModel, qualities.your);
+    console.log("All qualities:", JSON.stringify(allOtherQualities));
+    for (const challengeStr of allOtherQualities) {
+        const qualityButton = document.createElement("button");
+        qualityButton.type = "button";
+        qualityButton.className = "qualityListItem qualitySelection";
+        qualityButton.innerText = challengeStr;
+        qualityButton.onclick = () => toggleQualitySelect(qualityButton);
+        balanceDiv.appendChild(qualityButton);
+    }
+}
+
+function toggleQualitySelect(qualityButton) { // TODO
+    console.log("buttonclick:", qualityButton.innerText);
+}
+
+function setupPriorities(currentTab) { // TODO
+    console.log("PRIORITIES");
 }

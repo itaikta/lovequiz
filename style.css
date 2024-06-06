@@ -37,7 +37,7 @@ input.invalid {
     display: none;
 }
 
-button {
+button.navButton {
     background-color: skyblue;
     color: #ffffff;
     border: none;
@@ -53,4 +53,28 @@ button:hover {
 
 #prevBtn {
     background-color: #bbbbbb;
+}
+
+.traitList {
+    width: 100%;
+    padding: 10px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.qualityListItem {
+    flex: 1 1 0px;
+    border: 1px solid gray;
+    border-radius: 5px;
+    margin: 20px;
+    margin-bottom: 0;
+    padding: 5px;
+}
+
+button.qualitySelection {
+    background-color: transparent;
+}
+button.qualitySelection:hover {
+    background-color: lightskyblue;
 }
