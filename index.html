@@ -58,16 +58,34 @@
         </div>
 
         <div class="tab" id="balance">Alright, now here are you challenging qualities:</br>
-            <div class="traitList" id="challenging"></div>
+            <div class="qualityList" id="challenging"></div>
             <p>Please select which of these qualities below balance out your challenging traits:</p>
-            <div class="traitList" id="balanced"></div>
-        </div>
-        <div class="tab" id="prioities">This is the most important part… PRIORITISE YOUR LIST
-            <div id="priorityList"></div>
+            <div class="qualityList" id="balanced"></div>
+            <p>This is the most important part… PRIORITISE YOUR LIST:</p>
+            <table id="priorityTable">
+                <tr>
+                    <td>1</td><td>2</td><td>3</td><td>4</td><td>5</td><td>6</td><td>7</td><td>8</td><td>9</td><td>10</td>
+                </tr>
+                <tr id="listRow">
+                    <td><i>[EMPTY]</i></td><td><i>[EMPTY]</i></td><td><i>[EMPTY]</i></td><td><i>[EMPTY]</i></td><td><i>[EMPTY]</i></td><td><i>[EMPTY]</i></td><td><i>[EMPTY]</i></td><td><i>[EMPTY]</i></td><td><i>[EMPTY]</i></td><td><i>[EMPTY]</i></td>
+                </tr>
+                <tr id="buttonRow">
+                    <td><button type="button">&gt;</button></td>
+                    <td><button type="button">&lt;</button><button type="button">&gt;</button></td>
+                    <td><button type="button">&lt;</button><button type="button">&gt;</button></td>
+                    <td><button type="button">&lt;</button><button type="button">&gt;</button></td>
+                    <td><button type="button">&lt;</button><button type="button">&gt;</button></td>
+                    <td><button type="button">&lt;</button><button type="button">&gt;</button></td>
+                    <td><button type="button">&lt;</button><button type="button">&gt;</button></td>
+                    <td><button type="button">&lt;</button><button type="button">&gt;</button></td>
+                    <td><button type="button">&lt;</button><button type="button">&gt;</button></td>
+                    <td><button type="button">&lt;</button></td>
+                </tr>
+            </table>
         </div>
         <div class="tab">If you find a person that has many of the top 10, especially the first 3, MARRY THEM!</div>
 
-        <div style="overflow:auto;">
+        <div id="bottomRow">
             <div style="float:right;">
                 <button class="navButton" type="button" id="prevBtn" onclick="navigateTab(-1)">Previous</button>
                 <button class="navButton" type="button" id="nextBtn" onclick="navigateTab(1)">Begin!</button>

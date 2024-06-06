@@ -37,6 +37,11 @@ input.invalid {
     display: none;
 }
 
+#bottomRow {
+    overflow: auto;
+    margin-top: 10px;
+}
+
 button.navButton {
     background-color: skyblue;
     color: #ffffff;
@@ -55,10 +60,11 @@ button:hover {
     background-color: #bbbbbb;
 }
 
-.traitList {
+.qualityList {
     width: 100%;
     padding: 10px;
     display: flex;
+    flex-wrap: wrap;
     flex-direction: row;
     align-items: center;
 }
@@ -75,6 +81,33 @@ button:hover {
 button.qualitySelection {
     background-color: transparent;
 }
+
 button.qualitySelection:hover {
     background-color: lightskyblue;
+}
+
+table#priorityTable {
+    width: 100%;
+    padding: 0;
+}
+
+table#priorityTable tr {
+    margin: 0;
+    padding: 0;
+}
+
+table#priorityTable tr#listRow td {
+    border: 1px solid gray;
+}
+
+table#priorityTable tr#listRow td i {
+    font-weight: lighter;
+    color: gray;
+}
+
+table#priorityTable td {
+    text-align: center;
+    vertical-align: middle;
+    margin: 0;
+    padding: 2px;
 }
