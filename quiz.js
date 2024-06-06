@@ -174,5 +174,5 @@ function toggleQualitySelect(qualityButton) {
 }
 
 function shiftOrder(index, step) { // TODO 
-    console.log("shifting index", index, "by", step, "position");
+    console.log("shifting index", index, "by", step, "position"); 
 }
