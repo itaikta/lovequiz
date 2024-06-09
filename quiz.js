@@ -54,6 +54,7 @@ function showTab(tabIndex) {
     if (tabIndex === tabs.length - 1) {
         nextButton.style.display = "none";
         prevButton.style.display = "none";
+        populateFinalTraits();
     }
 }
 
@@ -62,6 +63,7 @@ function navigateTab(action) { // action: 1 for next tab, -1 for previous tab
     const currentTab = tabs[currentTabIndex];
 
     if (action === 1 && !validateForm(currentTab)) return;
+    if (currentTabIndex === tabs.length - 2 && !validatePriorityList()) return;
 
     const processFun = processTab[currentTabIndex];
     if (processFun) processFun(currentTab);
@@ -86,6 +88,11 @@ function validateForm(tab) {
     }
 
     return valid;
+}
+
+function validatePriorityList() {
+    const priorityRow = Array.from(document.getElementById("priorityList").children);
+    return priorityRow.filter(c => c.innerText.includes("[EMPTY]")).length === 0;
 }
 
 function populateArr(tab, arr) {
@@ -138,7 +145,6 @@ function toggleQualitySelect(qualityButton) {
     }
 
     if (indexOfQuality === -1) { // If it doesn't exist in the priority row, then add it
-        console.log("Adding:", quality);
         priorityRow.children[firstEmptyIndex].innerText = quality;
         qualityButton.className = "qualityListItem qualityActive";
 
@@ -151,7 +157,6 @@ function toggleQualitySelect(qualityButton) {
         }
     }
     else { // If it does exist, remove it and bubble everything after it down
-        console.log("Removing from index", indexOfQuality)
         const iTag = document.createElement("i");
         iTag.innerText = "[EMPTY]";
         priorityRow.children[indexOfQuality].innerHTML = ""; // bye bye
@@ -164,15 +169,31 @@ function toggleQualitySelect(qualityButton) {
 
         if (indexOfQuality < 9) { // If this is the last one, then we don't need to bubble anything down
             for (let i = indexOfQuality; i < firstEmptyIndex - 1; i++) {
-                const temp = priorityRow.children[i].innerHTML;
-                console.log(i);
-                priorityRow.children[i].innerHTML = priorityRow.children[i + 1].innerHTML;
-                priorityRow.children[i + 1].innerHTML = temp;
+                swap(priorityRow.children, i, i + 1);
             }
         }
     }
 }
 
-function shiftOrder(index, step) { // TODO 
-    console.log("shifting index", index, "by", step, "position"); 
+function shiftOrder(index, step) {
+    const priorityRow = document.getElementById("priorityList");
+    if (!priorityRow.children[index].innerText.includes("[EMPTY]") && // Current index is not empty
+        !priorityRow.children[index + step].innerText.includes("[EMPTY]")) { // The one next to it is not empty
+        
+            swap(priorityRow.children, index, index + step);
+    }
+}
+
+function swap(priorityList, index1, index2) {
+    const temp = priorityList[index1].innerHTML;
+    priorityList[index1].innerHTML = priorityList[index2].innerHTML;
+    priorityList[index2].innerHTML = temp;
+}
+
+function populateFinalTraits() {
+    const priorityRow = document.getElementById("priorityList");
+    const finalTraits = document.getElementById("finalTraits");
+    for (let i = 0; i < 10; i++) {
+        finalTraits.children[i].innerHTML = priorityRow.children[i].innerHTML;
+    }
 }

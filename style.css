@@ -4,12 +4,12 @@
 
 body {
     background-color: #f1f1f1;
+    font-family: "Roboto","Arial",sans-serif;
 }
 
 #content {
     background-color: #ffffff;
     margin: 100px auto;
-    font-family: Raleway;
     padding: 40px;
     width: 70%;
     min-width: 300px;
@@ -23,7 +23,6 @@ input {
     padding: 10px;
     width: 100%;
     font-size: 17px;
-    font-family: Raleway;
     border: 1px solid #aaaaaa;
 }
 
@@ -48,7 +47,6 @@ button.navButton {
     border: none;
     padding: 10px 20px;
     font-size: 17px;
-    font-family: Raleway;
     cursor: pointer;
 }
 
@@ -87,6 +85,7 @@ button.qualitySelection {
 button.qualitySelection:hover {
     background-color: lightskyblue;
     color: white;
+    border-width: 0;
 }
 
 button.qualityActive {
@@ -123,4 +122,13 @@ table#priorityTable td {
     vertical-align: middle;
     margin: 0;
     padding: 2px;
+}
+
+.boldText {
+    font-weight: bold;
+}
+
+#quizFooter {
+    font-size: 12px;
+    font-style: italic;
 }

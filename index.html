@@ -64,26 +64,65 @@
             <p>This is the most important part… PRIORITISE YOUR LIST:</p>
             <table id="priorityTable">
                 <tr>
-                    <td>1</td><td>2</td><td>3</td><td>4</td><td>5</td><td>6</td><td>7</td><td>8</td><td>9</td><td>10</td>
+                    <td>1</td>
+                    <td>2</td>
+                    <td>3</td>
+                    <td>4</td>
+                    <td>5</td>
+                    <td>6</td>
+                    <td>7</td>
+                    <td>8</td>
+                    <td>9</td>
+                    <td>10</td>
                 </tr>
                 <tr id="priorityList">
-                    <td><i>[EMPTY]</i></td><td><i>[EMPTY]</i></td><td><i>[EMPTY]</i></td><td><i>[EMPTY]</i></td><td><i>[EMPTY]</i></td><td><i>[EMPTY]</i></td><td><i>[EMPTY]</i></td><td><i>[EMPTY]</i></td><td><i>[EMPTY]</i></td><td><i>[EMPTY]</i></td>
+                    <td><i>[EMPTY]</i></td>
+                    <td><i>[EMPTY]</i></td>
+                    <td><i>[EMPTY]</i></td>
+                    <td><i>[EMPTY]</i></td>
+                    <td><i>[EMPTY]</i></td>
+                    <td><i>[EMPTY]</i></td>
+                    <td><i>[EMPTY]</i></td>
+                    <td><i>[EMPTY]</i></td>
+                    <td><i>[EMPTY]</i></td>
+                    <td><i>[EMPTY]</i></td>
                 </tr>
                 <tr>
                     <td><button type="button" onclick="shiftOrder(0, 1)">&gt;</button></td>
-                    <td><button type="button" onclick="shiftOrder(1, -1)">&lt;</button><button type="button" onclick="shiftOrder(1, 1)">&gt;</button></td>
-                    <td><button type="button" onclick="shiftOrder(2, -1)">&lt;</button><button type="button" onclick="shiftOrder(2, 1)">&gt;</button></td>
-                    <td><button type="button" onclick="shiftOrder(3, -1)">&lt;</button><button type="button" onclick="shiftOrder(3, 1)">&gt;</button></td>
-                    <td><button type="button" onclick="shiftOrder(4, -1)">&lt;</button><button type="button" onclick="shiftOrder(4, 1)">&gt;</button></td>
-                    <td><button type="button" onclick="shiftOrder(5, -1)">&lt;</button><button type="button" onclick="shiftOrder(5, 1)">&gt;</button></td>
-                    <td><button type="button" onclick="shiftOrder(6, -1)">&lt;</button><button type="button" onclick="shiftOrder(6, 1)">&gt;</button></td>
-                    <td><button type="button" onclick="shiftOrder(7, -1)">&lt;</button><button type="button" onclick="shiftOrder(7, 1)">&gt;</button></td>
-                    <td><button type="button" onclick="shiftOrder(8, -1)">&lt;</button><button type="button" onclick="shiftOrder(8, 1)">&gt;</button></td>
+                    <td><button type="button" onclick="shiftOrder(1, -1)">&lt;</button><button type="button"
+                            onclick="shiftOrder(1, 1)">&gt;</button></td>
+                    <td><button type="button" onclick="shiftOrder(2, -1)">&lt;</button><button type="button"
+                            onclick="shiftOrder(2, 1)">&gt;</button></td>
+                    <td><button type="button" onclick="shiftOrder(3, -1)">&lt;</button><button type="button"
+                            onclick="shiftOrder(3, 1)">&gt;</button></td>
+                    <td><button type="button" onclick="shiftOrder(4, -1)">&lt;</button><button type="button"
+                            onclick="shiftOrder(4, 1)">&gt;</button></td>
+                    <td><button type="button" onclick="shiftOrder(5, -1)">&lt;</button><button type="button"
+                            onclick="shiftOrder(5, 1)">&gt;</button></td>
+                    <td><button type="button" onclick="shiftOrder(6, -1)">&lt;</button><button type="button"
+                            onclick="shiftOrder(6, 1)">&gt;</button></td>
+                    <td><button type="button" onclick="shiftOrder(7, -1)">&lt;</button><button type="button"
+                            onclick="shiftOrder(7, 1)">&gt;</button></td>
+                    <td><button type="button" onclick="shiftOrder(8, -1)">&lt;</button><button type="button"
+                            onclick="shiftOrder(8, 1)">&gt;</button></td>
                     <td><button type="button" onclick="shiftOrder(9, -1)">&lt;</button></td>
                 </tr>
             </table>
         </div>
-        <div class="tab">If you find a person that has many of the top 10, especially the first 3, MARRY THEM!</div>
+        <div class="tab">If you find a person that has many of the top 10, especially the first 3, MARRY THEM!
+            <ol id="finalTraits">
+                <li class="boldText"></li>
+                <li class="boldText"></li>
+                <li class="boldText"></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+            </ol>
+        </div>
 
         <div id="bottomRow">
             <div style="float:right;">
@@ -92,7 +131,7 @@
             </div>
         </div>
 
-        <p>Quiz designed by Coach Ratner, SHLITA and brought to life by Itai Ktalav</p>
+        <p id="quizFooter">Quiz designed by Coach Ratner, SHLITA and brought to life by Itai Ktalav</p>
     </div>
 </body>
 
