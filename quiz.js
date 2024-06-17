@@ -62,7 +62,6 @@ function navigateTab(action) { // action: 1 for next tab, -1 for previous tab
     const tabs = document.getElementsByClassName("tab");
     const currentTab = tabs[currentTabIndex];
 
-    if (action === 1 && !validateForm(currentTab)) return;
     if (currentTabIndex === tabs.length - 2 && !validatePriorityList()) return;
 
     const processFun = processTab[currentTabIndex];
@@ -75,19 +74,19 @@ function navigateTab(action) { // action: 1 for next tab, -1 for previous tab
     showTab(currentTabIndex);
 }
 
-// Validation of the form fields
-function validateForm(tab) {
-    let valid = true;
-    const inputs = tab.getElementsByTagName("input");
+function addTraitTo(inputId, divId) {
+    const traitName = document.getElementById(inputId)?.value;
+    if (!traitName) return;
 
-    for (const input of inputs) {
-        if (input.value == "") { // Field is empty
-            input.className += " invalid"; // Sets the red background
-            valid = false;
-        }
-    }
+    const traitListDiv = document.getElementById(divId);
+    addToTraitListDiv(traitListDiv, traitName);
+}
 
-    return valid;
+function addToTraitListDiv(listDiv, traitName) {
+    const traitListItem = document.createElement("div");
+    traitListItem.className = "qualityListItem";
+    traitListItem.innerText = traitName;
+    listDiv.appendChild(traitListItem);
 }
 
 function validatePriorityList() {
@@ -105,10 +104,7 @@ function populateArr(tab, arr) {
 function setupBalance(currentTab) {
     const challengeDiv = currentTab.querySelector("#challenging");
     for (const challengeStr of qualities.challenging) {
-        const challengeElement = document.createElement("div");
-        challengeElement.className = "qualityListItem";
-        challengeElement.innerText = challengeStr;
-        challengeDiv.appendChild(challengeElement);
+        addToTraitListDiv(challengeDiv, challengeStr);
     }
 
     const balanceDiv = currentTab.querySelector("#balanced");
@@ -179,8 +175,8 @@ function shiftOrder(index, step) {
     const priorityRow = document.getElementById("priorityList");
     if (!priorityRow.children[index].innerText.includes("[EMPTY]") && // Current index is not empty
         !priorityRow.children[index + step].innerText.includes("[EMPTY]")) { // The one next to it is not empty
-        
-            swap(priorityRow.children, index, index + step);
+
+        swap(priorityRow.children, index, index + step);
     }
 }
 

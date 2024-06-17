@@ -19,9 +19,14 @@ h1 {
     text-align: center;
 }
 
+.traitInput {
+    display: flex;
+    flex-direction: row;
+}
+
 input {
     padding: 10px;
-    width: 100%;
+    flex: 1;
     font-size: 17px;
     border: 1px solid #aaaaaa;
 }
@@ -41,13 +46,18 @@ input.invalid {
     margin-top: 10px;
 }
 
-button.navButton {
+button.navButton, button.addButton {
     background-color: skyblue;
     color: #ffffff;
     border: none;
     padding: 10px 20px;
     font-size: 17px;
     cursor: pointer;
+}
+
+button.addButton {
+    flex: 0;
+    min-width: 100px;
 }
 
 button:hover {
