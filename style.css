@@ -7,6 +7,10 @@ body {
     font-family: "Roboto","Arial",sans-serif;
 }
 
+p {
+    margin: 0;
+}
+
 #content {
     background-color: #ffffff;
     margin: 100px auto;
@@ -29,6 +33,7 @@ input {
     flex: 1;
     font-size: 17px;
     border: 1px solid #aaaaaa;
+    width: 0;
 }
 
 /* Mark input boxes that gets an error on validation: */
@@ -68,12 +73,13 @@ button:hover {
     background-color: #bbbbbb;
 }
 
-.qualityList {
+.qualityList, .qualitySuggestions {
     width: 100%;
-    padding: 10px;
+    padding: 10px 0 10px 0;
     display: flex;
     flex-wrap: wrap;
     flex-direction: row;
+    justify-content: center;
     align-items: center;
 }
 
@@ -81,11 +87,8 @@ button:hover {
     flex: 0;
     border: 1px solid gray;
     border-radius: 5px;
-    margin: 20px;
-    margin-left: auto;
-    margin-right: auto;
-    margin-bottom: 0;
     padding: 5px;
+    margin: 0 2.5px 0 2.5px;
 }
 
 button.qualitySelection {
@@ -95,7 +98,7 @@ button.qualitySelection {
 button.qualitySelection:hover {
     background-color: lightskyblue;
     color: white;
-    border-width: 0;
+    border: 0;
 }
 
 button.qualityActive {

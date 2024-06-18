@@ -23,12 +23,15 @@
             <div class="qualityInput"><input id="desiredInput"><button class="addButton" type="button"
                     onclick="addQualityTo('desiredInput', 'desiredList')">Add</button></div>
             <div class="qualityList" id="desiredList"></div>
-            <div class="qualityList qualitySuggestions"><p>Suggested qualities:</p></div>
+            <p>Suggested qualities:</p>
+            <div class="qualitySuggestions"></div>
         </div>
         <div class="tab">Describe 5 or more of your own positive qualities
             <div class="qualityInput"><input id="yourQualitiesInput"><button class="addButton" type="button"
                     onclick="addQualityTo('yourQualitiesInput', 'yourQualityList')">Add</button></div>
             <div class="qualityList" id="yourQualityList"></div>
+            <p>Suggested qualities:</p>
+            <div class="qualitySuggestions"></div>
         </div>
         <div class="tab">Describe 5 or more of your own <b>challenging</b> qualities
             <div class="qualityInput"><input id="challengingInput"><button class="addButton" type="button"
@@ -40,12 +43,16 @@
             <div class="qualityInput"><input id="marriedInput"><button class="addButton" type="button"
                     onclick="addQualityTo('marriedInput', 'marriedList')">Add</button></div>
             <div class="qualityList" id="marriedList"></div>
+            <p>Suggested qualities:</p>
+            <div class="qualitySuggestions"></div>
         </div>
         <div class="tab">Think of a positive role model in your life and list the qualities that you admire. This can be
             a grandparent, friend, teacher, or even someone you follow on social media
             <div class="qualityInput"><input id="roleModelInput"><button class="addButton" type="button"
                     onclick="addQualityTo('roleModelInput', 'roleModelList')">Add</button></div>
             <div class="qualityList" id="roleModelList"></div>
+            <p>Suggested qualities:</p>
+            <div class="qualitySuggestions"></div>
         </div>
 
         <div class="tab" id="balance">Alright, now here are your challenging qualities:</br>
@@ -127,6 +134,7 @@
 </body>
 
 <footer>
+    <script src="qualityMasterList.js"></script>
     <script src="quiz.js"></script>
     <script>
         // Set up event listeners

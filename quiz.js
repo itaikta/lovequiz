@@ -19,7 +19,10 @@ function showTab(tabIndex) {
     }
 
     const qualitySuggestionListDiv = currentTab.getElementsByClassName("qualitySuggestions")?.item(0);
-    if (qualitySuggestionListDiv) populateQualitySuggestions(qualitySuggestionListDiv);
+    if (qualitySuggestionListDiv && qualitySuggestionListDiv.children.length === 0) {
+        const qualityListDiv = currentTab.getElementsByClassName("qualityList")[0]
+        populateQualitySuggestions(qualitySuggestionListDiv, qualityListDiv);
+    }
 
     // update the Previous/Next buttons:
     const nextButton = document.getElementById("nextBtn");
@@ -53,16 +56,17 @@ function navigateTab(action) { // action: 1 for next tab, -1 for previous tab
     showTab(currentTabIndex);
 }
 
-async function fetchQualitySuggestions() {
-    const qualityMasterListResponse = await fetch("qualityMasterList.txt");
-    const qualityMasterList = await qualityMasterListResponse.text();
-    return qualityMasterList.replaceAll(/\s/g,'').split(','); // remove whitespace and split
-}
-
-function populateQualitySuggestions(qualitySuggestionListDiv) {
-    fetchQualitySuggestions().then(() => {
-        // DO THE THING11
-    })
+function populateQualitySuggestions(qualitySuggestionListDiv) { // I hate JS. So much
+    const qualityListDiv = qualitySuggestionListDiv.parentElement.getElementsByClassName("qualityList")[0];
+    
+    for (const qualityName of qualityMasterList) { // Where does this come from, you may ask... The answer is (JS) magic!
+        addToQualityListDiv(
+            qualitySuggestionListDiv,
+            qualityName,
+            "qualitySelection",
+            () => addToQualityListDiv(qualityListDiv, qualityName, "qualityActive", () => removeQualityFrom(qualityListDiv, qualityName))
+        );
+    }
 }
 
 function addQualityTo(inputId, divId) { // This is on a button press
@@ -71,17 +75,17 @@ function addQualityTo(inputId, divId) { // This is on a button press
     if (!qualityName) return;
 
     const qualityListDiv = document.getElementById(divId) ?? throwError(`Couldn't find div with ID ${divId}`);
-    addToQualityListDiv(qualityListDiv, qualityName);
+    addToQualityListDiv(qualityListDiv, qualityName, "qualityActive", () => removeQualityFrom(qualityListDiv, qualityName));
     input.value = "";
     input.focus();
 }
 
-function addToQualityListDiv(listDiv, qualityName) {
+function addToQualityListDiv(listDiv, qualityName, className = "", onClick = null) {
     const qualityButton = document.createElement("button");
     qualityButton.type = "button";
-    qualityButton.className = "qualityListItem qualityActive";
+    qualityButton.className = `qualityListItem ${className}`;
     qualityButton.innerText = qualityName;
-    qualityButton.onclick = () => removeQualityFrom(listDiv, qualityName);
+    if (onClick) qualityButton.onclick = onClick;
     listDiv.appendChild(qualityButton);
 }
 
@@ -98,6 +102,7 @@ function validatePriorityList() {
 function setupBalance(currentTab) {
     const challengingListDiv = document.getElementById("challengingList");
     const finalChallengingListDiv = currentTab.querySelector("#challenging");
+    finalChallengingListDiv.replaceChildren();
 
     for (const challengeEle of challengingListDiv.children) {
         const qualityListItem = document.createElement("div");
@@ -107,6 +112,9 @@ function setupBalance(currentTab) {
     }
 
     const balanceDiv = currentTab.querySelector("#balanced");
+    balanceDiv.replaceChildren();
+
+    // TODO make this dynamic with a loop from each tab instead
     const desired = Array.from(document.getElementById("desiredList").children);
     const married = Array.from(document.getElementById("marriedList").children);
     const roleModel = Array.from(document.getElementById("roleModelList").children);
