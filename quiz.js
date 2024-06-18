@@ -18,6 +18,9 @@ function showTab(tabIndex) {
         setupBalance(currentTab);
     }
 
+    const qualitySuggestionListDiv = currentTab.getElementsByClassName("qualitySuggestions")?.item(0);
+    if (qualitySuggestionListDiv) populateQualitySuggestions(qualitySuggestionListDiv);
+
     // update the Previous/Next buttons:
     const nextButton = document.getElementById("nextBtn");
     const prevButton = document.getElementById("prevBtn");
@@ -40,7 +43,8 @@ function navigateTab(action) { // action: 1 for next tab, -1 for previous tab
     const tabs = document.getElementsByClassName("tab");
     const currentTab = tabs[currentTabIndex];
 
-    if (currentTabIndex === tabs.length - 2 && !validatePriorityList()) return;
+    // If it's the priority list tab, don't the the user proceed unless the list is valid
+    if (currentTab.id.includes("balance") && action === 1 && !validatePriorityList()) return;
 
     currentTab.style.display = "none"; // Deactivate tab
 
@@ -49,22 +53,41 @@ function navigateTab(action) { // action: 1 for next tab, -1 for previous tab
     showTab(currentTabIndex);
 }
 
+async function fetchQualitySuggestions() {
+    const qualityMasterListResponse = await fetch("qualityMasterList.txt");
+    const qualityMasterList = await qualityMasterListResponse.text();
+    return qualityMasterList.replaceAll(/\s/g,'').split(','); // remove whitespace and split
+}
+
+function populateQualitySuggestions(qualitySuggestionListDiv) {
+    fetchQualitySuggestions().then(() => {
+        // DO THE THING11
+    })
+}
+
 function addQualityTo(inputId, divId) { // This is on a button press
     const input = document.getElementById(inputId);
     const qualityName = input?.value;
     if (!qualityName) return;
 
-    const qualityListDiv = document.getElementById(divId);
+    const qualityListDiv = document.getElementById(divId) ?? throwError(`Couldn't find div with ID ${divId}`);
     addToQualityListDiv(qualityListDiv, qualityName);
     input.value = "";
     input.focus();
 }
 
 function addToQualityListDiv(listDiv, qualityName) {
-    const qualityListItem = document.createElement("div");
-    qualityListItem.className = "qualityListItem";
-    qualityListItem.innerText = qualityName;
-    listDiv.appendChild(qualityListItem);
+    const qualityButton = document.createElement("button");
+    qualityButton.type = "button";
+    qualityButton.className = "qualityListItem qualityActive";
+    qualityButton.innerText = qualityName;
+    qualityButton.onclick = () => removeQualityFrom(listDiv, qualityName);
+    listDiv.appendChild(qualityButton);
+}
+
+function removeQualityFrom(listDiv, qualityName) {
+    const qualityEle = Array.from(listDiv.children).filter(c => c.innerText === qualityName)[0];
+    listDiv.removeChild(qualityEle);
 }
 
 function validatePriorityList() {
@@ -72,19 +95,15 @@ function validatePriorityList() {
     return priorityRow.filter(c => c.innerText.includes("[EMPTY]")).length === 0;
 }
 
-function populateArr(tab, arr) {
-    const inputs = tab.getElementsByTagName("input");
-    for (const input of inputs) {
-        arr.push(input.value);
-    }
-}
-
 function setupBalance(currentTab) {
     const challengingListDiv = document.getElementById("challengingList");
     const finalChallengingListDiv = currentTab.querySelector("#challenging");
 
     for (const challengeEle of challengingListDiv.children) {
-        addToQualityListDiv(finalChallengingListDiv, challengeEle.innerText);
+        const qualityListItem = document.createElement("div");
+        qualityListItem.className = "qualityListItem";
+        qualityListItem.innerText = challengeEle.innerText;
+        finalChallengingListDiv.appendChild(qualityListItem);
     }
 
     const balanceDiv = currentTab.querySelector("#balanced");
@@ -176,4 +195,8 @@ function populateFinalQualities() {
     for (let i = 0; i < 10; i++) {
         finalQualities.children[i].innerHTML = priorityRow.children[i].innerHTML;
     }
+}
+
+function throwError(message) {
+    throw new Error(message);
 }
