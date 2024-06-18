@@ -8,7 +8,7 @@ Get real clarity on who will make great spouse for you! Just spend 30 minutes fi
 
 You will now make a new master list to reflect to kind of spouse that will be good for you. 
 1. First copy list A & B below. 
-2. From list C, figure out which qualities will help you to balance out your challenging traits and add them to this list. 
+2. From list C, figure out which qualities will help you to balance out your challenging qualities and add them to this list. 
 3. Add qualities from D and E that have not been previously listed.
 4. This is the most important part… PRIORITIZE YOUR LIST FROM 1 TO 10. 
 

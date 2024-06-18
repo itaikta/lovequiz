@@ -5,28 +5,6 @@
 *
 */
 
-// Globals are so much fun. Gotta love JS
-
-const qualities = {
-    desired: [],
-    your: [],
-    challenging: [],
-    married: [],
-    roleModel: [],
-    balancing: []
-};
-
-// The index of this array corresponds to the method that will be called to process the data from the current tab
-const processTab = [
-    null, // The first page is just the intro
-    (tab) => populateArr(tab, qualities.desired),
-    (tab) => populateArr(tab, qualities.your),
-    (tab) => populateArr(tab, qualities.challenging),
-    (tab) => populateArr(tab, qualities.married),
-    (tab) => populateArr(tab, qualities.roleModel),
-
-]
-
 let currentTabIndex = 0; // Current tab is set to be the first tab (0)
 showTab(currentTabIndex); // Display the current tab
 
@@ -54,7 +32,7 @@ function showTab(tabIndex) {
     if (tabIndex === tabs.length - 1) {
         nextButton.style.display = "none";
         prevButton.style.display = "none";
-        populateFinalTraits();
+        populateFinalQualities();
     }
 }
 
@@ -64,9 +42,6 @@ function navigateTab(action) { // action: 1 for next tab, -1 for previous tab
 
     if (currentTabIndex === tabs.length - 2 && !validatePriorityList()) return;
 
-    const processFun = processTab[currentTabIndex];
-    if (processFun) processFun(currentTab);
-
     currentTab.style.display = "none"; // Deactivate tab
 
     // Display the upcoming tab:
@@ -74,19 +49,22 @@ function navigateTab(action) { // action: 1 for next tab, -1 for previous tab
     showTab(currentTabIndex);
 }
 
-function addTraitTo(inputId, divId) {
-    const traitName = document.getElementById(inputId)?.value;
-    if (!traitName) return;
+function addQualityTo(inputId, divId) { // This is on a button press
+    const input = document.getElementById(inputId);
+    const qualityName = input?.value;
+    if (!qualityName) return;
 
-    const traitListDiv = document.getElementById(divId);
-    addToTraitListDiv(traitListDiv, traitName);
+    const qualityListDiv = document.getElementById(divId);
+    addToQualityListDiv(qualityListDiv, qualityName);
+    input.value = "";
+    input.focus();
 }
 
-function addToTraitListDiv(listDiv, traitName) {
-    const traitListItem = document.createElement("div");
-    traitListItem.className = "qualityListItem";
-    traitListItem.innerText = traitName;
-    listDiv.appendChild(traitListItem);
+function addToQualityListDiv(listDiv, qualityName) {
+    const qualityListItem = document.createElement("div");
+    qualityListItem.className = "qualityListItem";
+    qualityListItem.innerText = qualityName;
+    listDiv.appendChild(qualityListItem);
 }
 
 function validatePriorityList() {
@@ -102,19 +80,25 @@ function populateArr(tab, arr) {
 }
 
 function setupBalance(currentTab) {
-    const challengeDiv = currentTab.querySelector("#challenging");
-    for (const challengeStr of qualities.challenging) {
-        addToTraitListDiv(challengeDiv, challengeStr);
+    const challengingListDiv = document.getElementById("challengingList");
+    const finalChallengingListDiv = currentTab.querySelector("#challenging");
+
+    for (const challengeEle of challengingListDiv.children) {
+        addToQualityListDiv(finalChallengingListDiv, challengeEle.innerText);
     }
 
     const balanceDiv = currentTab.querySelector("#balanced");
-    let allOtherQualities = qualities.desired.concat(qualities.married, qualities.roleModel, qualities.your);
+    const desired = Array.from(document.getElementById("desiredList").children);
+    const married = Array.from(document.getElementById("marriedList").children);
+    const roleModel = Array.from(document.getElementById("roleModelList").children);
+    const yourQualities = Array.from(document.getElementById("yourQualityList").children);
+    let allOtherQualities = desired.concat(married, roleModel, yourQualities);
 
-    for (const challengeStr of allOtherQualities) {
+    for (const qualityEle of allOtherQualities) {
         const qualityButton = document.createElement("button");
         qualityButton.type = "button";
         qualityButton.className = "qualityListItem qualitySelection";
-        qualityButton.innerText = challengeStr;
+        qualityButton.innerText = qualityEle.innerText;
         qualityButton.onclick = () => toggleQualitySelect(qualityButton);
         balanceDiv.appendChild(qualityButton);
     }
@@ -186,10 +170,10 @@ function swap(priorityList, index1, index2) {
     priorityList[index2].innerHTML = temp;
 }
 
-function populateFinalTraits() {
+function populateFinalQualities() {
     const priorityRow = document.getElementById("priorityList");
-    const finalTraits = document.getElementById("finalTraits");
+    const finalQualities = document.getElementById("finalQualities");
     for (let i = 0; i < 10; i++) {
-        finalTraits.children[i].innerHTML = priorityRow.children[i].innerHTML;
+        finalQualities.children[i].innerHTML = priorityRow.children[i].innerHTML;
     }
 }

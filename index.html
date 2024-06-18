@@ -4,13 +4,13 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Soulmate Trait Quiz ♥♥</title>
+    <title>Soulmate Quality Quiz ♥♥</title>
     <link href="style.css" rel="stylesheet" />
 </head>
 
 <body>
     <div id="content">
-        <h1>Soulmate Trait Quiz ♥♥</h1>
+        <h1>Soulmate Quality Quiz ♥♥</h1>
 
         <!-- One "tab" for each step in the form: -->
         <div class="tab">
@@ -20,44 +20,36 @@
         </div>
 
         <div class="tab">Describe 5 or more qualities that you are looking for in a spouse
-            <div class="traitInput"><input id="desiredInput"><button class="addButton" type="button"
-                    onclick="addTraitTo('desiredInput', 'desiredList')">Add</button></div>
+            <div class="qualityInput"><input id="desiredInput"><button class="addButton" type="button"
+                    onclick="addQualityTo('desiredInput', 'desiredList')">Add</button></div>
             <div class="qualityList" id="desiredList"></div>
         </div>
-        <div class="tab">Describe 5 or more of your positive qualities
-            <p><input oninput="this.className = ''"></p>
-            <p><input oninput="this.className = ''"></p>
-            <p><input oninput="this.className = ''"></p>
-            <p><input oninput="this.className = ''"></p>
-            <p><input oninput="this.className = ''"></p>
+        <div class="tab">Describe 5 or more of your own positive qualities
+            <div class="qualityInput"><input id="yourQualitiesInput"><button class="addButton" type="button"
+                    onclick="addQualityTo('yourQualitiesInput', 'yourQualityList')">Add</button></div>
+            <div class="qualityList" id="yourQualityList"></div>
         </div>
-        <div class="tab">Describe 5 or more of your <b>challenging</b> qualities
-            <p><input oninput="this.className = ''"></p>
-            <p><input oninput="this.className = ''"></p>
-            <p><input oninput="this.className = ''"></p>
-            <p><input oninput="this.className = ''"></p>
-            <p><input oninput="this.className = ''"></p>
+        <div class="tab">Describe 5 or more of your own <b>challenging</b> qualities
+            <div class="qualityInput"><input id="challengingInput"><button class="addButton" type="button"
+                    onclick="addQualityTo('challengingInput', 'challengingList')">Add</button></div>
+            <div class="qualityList" id="challengingList"></div>
         </div>
         <div class="tab">Think of three happily married couples that you cherish and list everything you admire about
             their marriage
-            <p><input oninput="this.className = ''"></p>
-            <p><input oninput="this.className = ''"></p>
-            <p><input oninput="this.className = ''"></p>
-            <p><input oninput="this.className = ''"></p>
-            <p><input oninput="this.className = ''"></p>
+            <div class="qualityInput"><input id="marriedInput"><button class="addButton" type="button"
+                    onclick="addQualityTo('marriedInput', 'marriedList')">Add</button></div>
+            <div class="qualityList" id="marriedList"></div>
         </div>
         <div class="tab">Think of a positive role model in your life and list the qualities that you admire. This can be
             a grandparent, friend, teacher, or even someone you follow on social media
-            <p><input oninput="this.className = ''"></p>
-            <p><input oninput="this.className = ''"></p>
-            <p><input oninput="this.className = ''"></p>
-            <p><input oninput="this.className = ''"></p>
-            <p><input oninput="this.className = ''"></p>
+            <div class="qualityInput"><input id="roleModelInput"><button class="addButton" type="button"
+                    onclick="addQualityTo('roleModelInput', 'roleModelList')">Add</button></div>
+            <div class="qualityList" id="roleModelList"></div>
         </div>
 
-        <div class="tab" id="balance">Alright, now here are you challenging qualities:</br>
+        <div class="tab" id="balance">Alright, now here are your challenging qualities:</br>
             <div class="qualityList" id="challenging"></div>
-            <p>Please select which of these qualities below balance out your challenging traits:</p>
+            <p>Please select which of these qualities below balance out your challenging qualities:</p>
             <div class="qualityList" id="balanced"></div>
             <p>This is the most important part… PRIORITISE YOUR LIST:</p>
             <table id="priorityTable">
@@ -108,7 +100,7 @@
             </table>
         </div>
         <div class="tab">If you find a person that has many of the top 10, especially the first 3, MARRY THEM!
-            <ol id="finalTraits">
+            <ol id="finalQualities">
                 <li class="boldText"></li>
                 <li class="boldText"></li>
                 <li class="boldText"></li>
@@ -134,13 +126,15 @@
 </body>
 
 <footer>
-    <script src="quiz.js">
-        // DOESN"T WORK YET
-        var divs = document.getElementsByClassName("traitInput");
+    <script src="quiz.js"></script>
+    <script>
+        // Set up event listeners
+        var divs = document.getElementsByClassName("qualityInput");
         for (const div of divs) {
             const input = div.getElementsByTagName("input").item(0);
             const button = div.getElementsByTagName("button").item(0);
-            input.addEventListener("keypress", function (event) {
+
+            input.addEventListener("keypress", event => {
                 if (event.key === "Enter") {
                     event.preventDefault();
                     button.click();
@@ -148,7 +142,6 @@
             });
         }
     </script>
-
 </footer>
 
 </html>

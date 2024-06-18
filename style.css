@@ -19,7 +19,7 @@ h1 {
     text-align: center;
 }
 
-.traitInput {
+.qualityInput {
     display: flex;
     flex-direction: row;
 }
