@@ -81,12 +81,18 @@ function addQualityTo(inputId, divId) { // This is on a button press
 }
 
 function addToQualityListDiv(listDiv, qualityName, className = "", onClick = null) {
+    if (qualityExists(listDiv.children, qualityName)) return;
+
     const qualityButton = document.createElement("button");
     qualityButton.type = "button";
     qualityButton.className = `qualityListItem ${className}`;
     qualityButton.innerText = qualityName;
     if (onClick) qualityButton.onclick = onClick;
     listDiv.appendChild(qualityButton);
+}
+
+function qualityExists(qualityList, qualityName) {
+    return Array.from(qualityList).filter(q => q.innerText === qualityName).length > 0;
 }
 
 function removeQualityFrom(listDiv, qualityName) {
@@ -114,14 +120,17 @@ function setupBalance(currentTab) {
     const balanceDiv = currentTab.querySelector("#balanced");
     balanceDiv.replaceChildren();
 
-    // TODO make this dynamic with a loop from each tab instead
     const desired = Array.from(document.getElementById("desiredList").children);
     const married = Array.from(document.getElementById("marriedList").children);
     const roleModel = Array.from(document.getElementById("roleModelList").children);
     const yourQualities = Array.from(document.getElementById("yourQualityList").children);
-    let allOtherQualities = desired.concat(married, roleModel, yourQualities);
+    const allOtherQualities = desired.concat(married, roleModel, yourQualities);
+    const qualityCache = {};
 
     for (const qualityEle of allOtherQualities) {
+        if (qualityCache[qualityEle.innerText]) continue;
+
+        qualityCache[qualityEle.innerText] = true;
         const qualityButton = document.createElement("button");
         qualityButton.type = "button";
         qualityButton.className = "qualityListItem qualitySelection";
@@ -180,10 +189,12 @@ function addPriority(priorityColumn, firstEmptyIndex, qualityButton, quality) {
 
 function removePriority(index, priorities = null, qualityButton = null, firstEmptyIndex = null) {
     if (!priorities) priorities = document.getElementsByClassName("priorityDataColumn");
+    if (priorities[index].innerText.includes("[EMPTY]")) return;
+
     if (!firstEmptyIndex) firstEmptyIndex = findIndices(priorities, "")[0];
 
     const qualityRow = document.getElementById("balanced") ?? throwError("No balanced quality row found");
-    if (!qualityButton) qualityButton = Array.from(qualityRow.children).filter(q => q.innerText === priorities[index].innerText)[0]; // Get quality button
+    if (!qualityButton) qualityButton = getQualityButton(qualityRow, priorities[index].innerText);
 
     const iTag = document.createElement("i");
     iTag.innerText = "[EMPTY]";
@@ -200,6 +211,10 @@ function removePriority(index, priorities = null, qualityButton = null, firstEmp
             swap(priorities, i, i + 1);
         }
     }
+}
+
+function getQualityButton(qualityRow, qualityName) {
+    return Array.from(qualityRow.children).filter(q => q.innerText === qualityName)[0];
 }
 
 function shiftOrder(index, step) {
