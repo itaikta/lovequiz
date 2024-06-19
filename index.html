@@ -60,50 +60,84 @@
             <p>Please select which of these qualities below balance out your challenging qualities:</p>
             <div class="qualityList" id="balanced"></div>
             <p>This is the most important part… PRIORITISE YOUR LIST:</p>
-            <table id="priorityTable">
+            <table id="priorities">
                 <tr>
-                    <td>1</td>
-                    <td>2</td>
-                    <td>3</td>
-                    <td>4</td>
-                    <td>5</td>
-                    <td>6</td>
-                    <td>7</td>
-                    <td>8</td>
-                    <td>9</td>
-                    <td>10</td>
-                </tr>
-                <tr id="priorityList">
-                    <td><i>[EMPTY]</i></td>
-                    <td><i>[EMPTY]</i></td>
-                    <td><i>[EMPTY]</i></td>
-                    <td><i>[EMPTY]</i></td>
-                    <td><i>[EMPTY]</i></td>
-                    <td><i>[EMPTY]</i></td>
-                    <td><i>[EMPTY]</i></td>
-                    <td><i>[EMPTY]</i></td>
-                    <td><i>[EMPTY]</i></td>
-                    <td><i>[EMPTY]</i></td>
+                    <td class="buttons">
+                        <button type="button" onclick="shiftOrder(0, 1)">⮛</button>
+                    </td>
+                    <td class="priorityDataColumn"><i>[EMPTY]</i></td>
+                    <td><button class="xCell" type="button" onclick="removePriority(0)">X</button></td>
                 </tr>
                 <tr>
-                    <td><button type="button" onclick="shiftOrder(0, 1)">&gt;</button></td>
-                    <td><button type="button" onclick="shiftOrder(1, -1)">&lt;</button><button type="button"
-                            onclick="shiftOrder(1, 1)">&gt;</button></td>
-                    <td><button type="button" onclick="shiftOrder(2, -1)">&lt;</button><button type="button"
-                            onclick="shiftOrder(2, 1)">&gt;</button></td>
-                    <td><button type="button" onclick="shiftOrder(3, -1)">&lt;</button><button type="button"
-                            onclick="shiftOrder(3, 1)">&gt;</button></td>
-                    <td><button type="button" onclick="shiftOrder(4, -1)">&lt;</button><button type="button"
-                            onclick="shiftOrder(4, 1)">&gt;</button></td>
-                    <td><button type="button" onclick="shiftOrder(5, -1)">&lt;</button><button type="button"
-                            onclick="shiftOrder(5, 1)">&gt;</button></td>
-                    <td><button type="button" onclick="shiftOrder(6, -1)">&lt;</button><button type="button"
-                            onclick="shiftOrder(6, 1)">&gt;</button></td>
-                    <td><button type="button" onclick="shiftOrder(7, -1)">&lt;</button><button type="button"
-                            onclick="shiftOrder(7, 1)">&gt;</button></td>
-                    <td><button type="button" onclick="shiftOrder(8, -1)">&lt;</button><button type="button"
-                            onclick="shiftOrder(8, 1)">&gt;</button></td>
-                    <td><button type="button" onclick="shiftOrder(9, -1)">&lt;</button></td>
+                    <td class="buttons">
+                        <button type="button" onclick="shiftOrder(1, -1)">⮙</button><br />
+                        <button type="button" onclick="shiftOrder(1, 1)">⮛</button>
+                    </td>
+                    <td class="priorityDataColumn"><i>[EMPTY]</i></td>
+                    <td><button class="xCell" type="button" onclick="removePriority(1)">X</button></td>
+                </tr>
+                <tr>
+                    <td class="buttons">
+                        <button type="button" onclick="shiftOrder(2, -1)">⮙</button><br />
+                        <button type="button" onclick="shiftOrder(2, 1)">⮛</button>
+                    </td>
+                    <td class="priorityDataColumn"><i>[EMPTY]</i></td>
+                    <td><button class="xCell" type="button" onclick="removePriority(2)">X</button></td>
+                </tr>
+                <tr>
+                    <td class="buttons">
+                        <button type="button" onclick="shiftOrder(3, -1)">⮙</button><br />
+                        <button type="button" onclick="shiftOrder(3, 1)">⮛</button>
+                    </td>
+                    <td class="priorityDataColumn"><i>[EMPTY]</i></td>
+                    <td><button class="xCell" type="button" onclick="removePriority(3)">X</button></td>
+                </tr>
+                <tr>
+                    <td class="buttons">
+                        <button type="button" onclick="shiftOrder(4, -1)">⮙</button><br />
+                        <button type="button" onclick="shiftOrder(4, 1)">⮛</button>
+                    </td>
+                    <td class="priorityDataColumn"><i>[EMPTY]</i></td>
+                    <td><button class="xCell" type="button" onclick="removePriority(4)">X</button></td>
+                </tr>
+                <tr>
+                    <td class="buttons">
+                        <button type="button" onclick="shiftOrder(5, -1)">⮙</button><br />
+                        <button type="button" onclick="shiftOrder(5, 1)">⮛</button>
+                    </td>
+                    <td class="priorityDataColumn"><i>[EMPTY]</i></td>
+                    <td><button class="xCell" type="button" onclick="removePriority(5)">X</button></td>
+                </tr>
+                <tr>
+                    <td class="buttons">
+                        <button type="button" onclick="shiftOrder(6, -1)">⮙</button><br />
+                        <button type="button" onclick="shiftOrder(6, 1)">⮛</button>
+                    </td>
+                    <td class="priorityDataColumn"><i>[EMPTY]</i></td>
+                    <td><button class="xCell" type="button" onclick="removePriority(6)">X</button></td>
+                </tr>
+                <tr>
+                    <td class="buttons">
+                        <button type="button" onclick="shiftOrder(7, -1)">⮙</button><br />
+                        <button type="button" onclick="shiftOrder(7, 1)">⮛</button>
+                    </td>
+                    <td class="priorityDataColumn"><i>[EMPTY]</i></td>
+                    <td><button class="xCell" type="button" onclick="removePriority(7)">X</button></td>
+                </tr>
+                <tr>
+                    <td class="buttons">
+                        <button type="button" onclick="shiftOrder(8, -1)">⮙</button><br />
+                        <button type="button" onclick="shiftOrder(8, 1)">⮛</button>
+                    </td>
+                    <td class="priorityDataColumn"><i>[EMPTY]</i></td>
+                    <td><button class="xCell" type="button" onclick="removePriority(8)">X</button></td>
+                </tr>
+                <tr>
+                    <td class="buttons">
+                        <button type="button" onclick="shiftOrder(9, -1)">⮙</button><br />
+                    </td>
+                    <td class="priorityDataColumn"><i>[EMPTY]</i></td>
+                    <td><button class="xCell" type="button" onclick="removePriority(9)">X</button></td>
                 </tr>
             </table>
         </div>

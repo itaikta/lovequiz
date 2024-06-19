@@ -111,30 +111,34 @@ button.qualityActive:hover {
     background-color: lightcoral;
 }
 
-table#priorityTable {
-    width: 100%;
-    padding: 0;
-}
-
-table#priorityTable tr {
-    margin: 0;
-    padding: 0;
-}
-
-table#priorityTable tr#listRow td {
-    border: 1px solid gray;
-}
-
-table#priorityTable tr#listRow td i {
-    font-weight: lighter;
-    color: gray;
-}
-
-table#priorityTable td {
-    text-align: center;
-    vertical-align: middle;
-    margin: 0;
+table#priorities td.buttons button {
+    background-color: transparent;
     padding: 2px;
+    font-size: 15px;
+    font-weight: bold;
+    border-radius: 7px;
+}
+
+table#priorities td.priorityDataColumn {
+    padding: 10px;
+}
+table#priorities td.priorityDataColumn i {
+    font-weight: 100;
+    color: #bbbbbb;
+}
+
+button.xCell {
+    font-size: 25px;
+    font-weight: 900;
+    color: #5e5e5e;
+    vertical-align: middle;
+    text-align: center;
+
+    background: none;
+    border: none;
+    outline: none;
+    box-shadow: none;
+    padding: none;
 }
 
 .boldText {

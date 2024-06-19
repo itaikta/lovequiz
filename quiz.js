@@ -1,9 +1,9 @@
 /*
-*
-* Tab switching form code thanks to W3 schools!
-* https://www.w3schools.com/howto/howto_js_form_steps.asp?
-*
-*/
+ *
+ * Tab switching form code thanks to W3 schools!
+ * https://www.w3schools.com/howto/howto_js_form_steps.asp?
+ *
+ */
 
 let currentTabIndex = 0; // Current tab is set to be the first tab (0)
 showTab(currentTabIndex); // Display the current tab
@@ -58,7 +58,7 @@ function navigateTab(action) { // action: 1 for next tab, -1 for previous tab
 
 function populateQualitySuggestions(qualitySuggestionListDiv) { // I hate JS. So much
     const qualityListDiv = qualitySuggestionListDiv.parentElement.getElementsByClassName("qualityList")[0];
-    
+
     for (const qualityName of qualityMasterList) { // Where does this come from, you may ask... The answer is (JS) magic!
         addToQualityListDiv(
             qualitySuggestionListDiv,
@@ -132,18 +132,28 @@ function setupBalance(currentTab) {
 }
 
 function toggleQualitySelect(qualityButton) {
+    const quality = qualityButton.innerText;
+    const priorityColumn = document.getElementsByClassName("priorityDataColumn");
+
+    const [firstEmptyIndex, indexOfQuality] = findIndices(priorityColumn, quality);
+
+    if (indexOfQuality === -1) { // If it doesn't exist in the priority row, then add it
+        addPriority(priorityColumn, firstEmptyIndex, qualityButton, quality);
+    }
+    else { // If it does exist, remove it and bubble everything after it down
+        removePriority(indexOfQuality, priorityColumn, qualityButton, firstEmptyIndex);
+    }
+}
+
+function findIndices(priorityColumn, quality) {
     let firstEmptyIndex = 10; // Will remain 10 if the list is full
     let indexOfQuality = -1;
 
-    const quality = qualityButton.innerText;
-    const priorityRow = document.getElementById("priorityList");
-    const qualityRow = document.getElementById("balanced");
-
-    for (let i = 0; i < priorityRow.children.length; i++) {
-        const currentTd = priorityRow.children[i];
+    for (let i = 0; i < priorityColumn.length; i++) {
+        const currentTd = priorityColumn[i];
         if (currentTd.innerText.includes("[EMPTY]")) {
             firstEmptyIndex = i;
-            break; // I think this is more readable than putting the above condition in the loop...
+            break;
         }
 
         if (currentTd.innerText === quality) {
@@ -151,43 +161,53 @@ function toggleQualitySelect(qualityButton) {
         }
     }
 
-    if (indexOfQuality === -1) { // If it doesn't exist in the priority row, then add it
-        priorityRow.children[firstEmptyIndex].innerText = quality;
-        qualityButton.className = "qualityListItem qualityActive";
+    return [firstEmptyIndex, indexOfQuality];
+}
 
-        if (firstEmptyIndex === 9) { // If the list is full, disable buttons so more can't be added
-            for (const qualityButtonI of qualityRow.children) {
-                if (qualityButtonI.className.includes("qualitySelection")) {
-                    qualityButtonI.disabled = true;
-                }
-            }
-        }
-    }
-    else { // If it does exist, remove it and bubble everything after it down
-        const iTag = document.createElement("i");
-        iTag.innerText = "[EMPTY]";
-        priorityRow.children[indexOfQuality].innerHTML = ""; // bye bye
-        priorityRow.children[indexOfQuality].appendChild(iTag);
-        qualityButton.className = "qualityListItem qualitySelection";
+function addPriority(priorityColumn, firstEmptyIndex, qualityButton, quality) {
+    const qualityRow = document.getElementById("balanced");
+    priorityColumn[firstEmptyIndex].innerText = quality;
+    qualityButton.className = "qualityListItem qualityActive";
 
+    if (firstEmptyIndex === 9) { // If the list is full, disable buttons so more can't be added
         for (const qualityButtonI of qualityRow.children) {
-            qualityButtonI.disabled = false;
-        }
-
-        if (indexOfQuality < 9) { // If this is the last one, then we don't need to bubble anything down
-            for (let i = indexOfQuality; i < firstEmptyIndex - 1; i++) {
-                swap(priorityRow.children, i, i + 1);
+            if (qualityButtonI.className.includes("qualitySelection")) {
+                qualityButtonI.disabled = true;
             }
         }
     }
 }
 
-function shiftOrder(index, step) {
-    const priorityRow = document.getElementById("priorityList");
-    if (!priorityRow.children[index].innerText.includes("[EMPTY]") && // Current index is not empty
-        !priorityRow.children[index + step].innerText.includes("[EMPTY]")) { // The one next to it is not empty
+function removePriority(index, priorities = null, qualityButton = null, firstEmptyIndex = null) {
+    if (!priorities) priorities = document.getElementsByClassName("priorityDataColumn");
+    if (!firstEmptyIndex) firstEmptyIndex = findIndices(priorities, "")[0];
 
-        swap(priorityRow.children, index, index + step);
+    const qualityRow = document.getElementById("balanced") ?? throwError("No balanced quality row found");
+    if (!qualityButton) qualityButton = Array.from(qualityRow.children).filter(q => q.innerText === priorities[index].innerText)[0]; // Get quality button
+
+    const iTag = document.createElement("i");
+    iTag.innerText = "[EMPTY]";
+    priorities[index].innerHTML = ""; // bye bye
+    priorities[index].appendChild(iTag);
+    qualityButton.className = "qualityListItem qualitySelection";
+
+    for (const qualityButtonI of qualityRow.children) {
+        qualityButtonI.disabled = false;
+    }
+
+    if (index < 9) { // If this is the last one, then we don't need to bubble anything down
+        for (let i = index; i < firstEmptyIndex - 1; i++) {
+            swap(priorities, i, i + 1);
+        }
+    }
+}
+
+function shiftOrder(index, step) {
+    const priorities = document.getElementsByClassName("priorityDataColumn");
+    if (!priorities[index].innerText.includes("[EMPTY]") && // Current index is not empty
+        !priorities[index + step].innerText.includes("[EMPTY]")) { // The one next to it is not empty
+
+        swap(priorities, index, index + step);
     }
 }
 
@@ -201,7 +221,7 @@ function populateFinalQualities() {
     const priorityRow = document.getElementById("priorityList");
     const finalQualities = document.getElementById("finalQualities");
     for (let i = 0; i < 10; i++) {
-        finalQualities.children[i].innerHTML = priorityRow.children[i].innerHTML;
+        finalQualities[i].innerHTML = priorityRow[i].innerHTML;
     }
 }
 
