@@ -111,6 +111,12 @@ button.qualityActive:hover {
     background-color: lightcoral;
 }
 
+p#lowTraitsWarning {
+    display: none;
+    color: #c54e4e;
+    font-weight: bold;
+}
+
 table#priorities td.buttons button {
     background-color: transparent;
     padding: 2px;

@@ -138,6 +138,9 @@ function setupBalance(currentTab) {
         qualityButton.onclick = () => toggleQualitySelect(qualityButton);
         balanceDiv.appendChild(qualityButton);
     }
+
+    const warningMessage = document.getElementById("lowTraitsWarning"); // THIS ISN"T WORKING NEED TO FIX 
+    warningMessage.style.display = balanceDiv.children.length < 10 ? "inline" : "block";
 }
 
 function toggleQualitySelect(qualityButton) {
