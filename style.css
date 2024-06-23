@@ -41,8 +41,8 @@ input.invalid {
     background-color: #ffdddd;
 }
 
-/* Hide all steps by default: */
-.tab {
+/* Hide all tabs by default: */
+.tab, #desiredQualitiesMasterList, #challengingQualitiesMasterList {
     display: none;
 }
 
@@ -73,7 +73,7 @@ button:hover {
     background-color: #bbbbbb;
 }
 
-.qualityList, .qualitySuggestions {
+.qualityList {
     width: 100%;
     padding: 10px 0 10px 0;
     display: flex;
@@ -98,7 +98,7 @@ button.qualitySelection {
 button.qualitySelection:hover {
     background-color: lightskyblue;
     color: white;
-    border: 0;
+    border-color: transparent;
 }
 
 button.qualityActive {

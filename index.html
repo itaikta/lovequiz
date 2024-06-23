@@ -19,46 +19,46 @@
                 considered. This is how you will Merit Your Basheret.</p>
         </div>
 
-        <div class="tab">Describe 5 or more qualities that you are looking for in a spouse
-            <div class="qualityInput"><input id="desiredInput"><button class="addButton" type="button"
-                    onclick="addQualityTo('desiredInput', 'desiredList')">Add</button></div>
-            <div class="qualityList" id="desiredList"></div>
-            <p>Suggested qualities:</p>
-            <div class="qualitySuggestions"></div>
+        <div class="tab desiredQualities">Describe 5 or more qualities that you are looking for in a spouse
+            <div class="qualityInput">
+                <input><button class="addButton" type="button" onclick="addQuality()">Add</button>
+            </div>
+            <div class="qualityList"></div>
         </div>
-        <div class="tab">Describe 5 or more of your own positive qualities
-            <div class="qualityInput"><input id="yourQualitiesInput"><button class="addButton" type="button"
-                    onclick="addQualityTo('yourQualitiesInput', 'yourQualityList')">Add</button></div>
-            <div class="qualityList" id="yourQualityList"></div>
-            <p>Suggested qualities:</p>
-            <div class="qualitySuggestions"></div>
+        <div class="tab desiredQualities">Describe 5 or more of your own positive qualities
+            <div class="qualityInput">
+                <input><button class="addButton" type="button" onclick="addQuality()">Add</button>
+            </div>
+            <div class="qualityList"></div>
         </div>
-        <div class="tab">Describe 5 or more of your own <b>challenging</b> qualities
-            <div class="qualityInput"><input id="challengingInput"><button class="addButton" type="button"
-                    onclick="addQualityTo('challengingInput', 'challengingList')">Add</button></div>
+        <div class="tab challengingQualities">Describe 5 or more of your own <b>challenging</b> qualities
+            <div class="qualityInput">
+                <input><button class="addButton" type="button" onclick="addQuality()">Add</button>
+            </div>
             <div class="qualityList" id="challengingList"></div>
         </div>
-        <div class="tab">Think of three happily married couples that you cherish and list everything you admire about
+        <div class="tab desiredQualities">Think of three happily married couples that you cherish and list everything
+            you admire about
             their marriage
-            <div class="qualityInput"><input id="marriedInput"><button class="addButton" type="button"
-                    onclick="addQualityTo('marriedInput', 'marriedList')">Add</button></div>
-            <div class="qualityList" id="marriedList"></div>
-            <p>Suggested qualities:</p>
-            <div class="qualitySuggestions"></div>
+            <div class="qualityInput">
+                <input><button class="addButton" type="button" onclick="addQuality()">Add</button>
+            </div>
+            <div class="qualityList"></div>
         </div>
-        <div class="tab">Think of a positive role model in your life and list the qualities that you admire. This can be
+        <div class="tab desiredQualities">Think of a positive role model in your life and list the qualities that you
+            admire. This can be
             a grandparent, friend, teacher, or even someone you follow on social media
-            <div class="qualityInput"><input id="roleModelInput"><button class="addButton" type="button"
-                    onclick="addQualityTo('roleModelInput', 'roleModelList')">Add</button></div>
-            <div class="qualityList" id="roleModelList"></div>
-            <p>Suggested qualities:</p>
-            <div class="qualitySuggestions"></div>
+            <div class="qualityInput">
+                <input><button class="addButton" type="button" onclick="addQuality()">Add</button>
+            </div>
+            <div class="qualityList"></div>
         </div>
 
         <div class="tab" id="balance">Alright, now here are your challenging qualities:</br>
             <div class="qualityList" id="challenging"></div>
             <p>Please select which of these qualities below balance out your challenging qualities:</p>
-            <p id="lowTraitsWarning">Your listed qualities are very few. Please go back and consider adding more to each list</p>
+            <p id="lowTraitsWarning">Your listed qualities are very few. Please go back and consider adding more to each
+                list</p>
             <div class="qualityList" id="balanced"></div>
             <p>This is the most important part… PRIORITISE YOUR LIST:</p>
             <table id="priorities">
@@ -142,7 +142,7 @@
                 </tr>
             </table>
         </div>
-        <div class="tab">If you find a person that has many of the top 10, especially the first 3, MARRY THEM!
+        <div class="tab">If you find a person that has <i>many</i> of your top 10, especially the first 3, MARRY THEM!
             <ol id="finalQualities">
                 <li class="boldText"></li>
                 <li class="boldText"></li>
@@ -155,6 +155,15 @@
                 <li></li>
                 <li></li>
             </ol>
+        </div>
+
+        <div id="desiredQualitiesMasterList">
+            <p>Suggested qualities:</p>
+            <div class="qualityList"></div>
+        </div>
+        <div id="challengingQualitiesMasterList">
+            <p>Suggested qualities:</p>
+            <div class="qualityList"></div>
         </div>
 
         <div id="bottomRow">

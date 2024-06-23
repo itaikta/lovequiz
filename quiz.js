@@ -7,6 +7,7 @@
 
 let currentTabIndex = 0; // Current tab is set to be the first tab (0)
 showTab(currentTabIndex); // Display the current tab
+populateQualitySuggestions();
 
 // This function will display the specified tab of the form
 function showTab(tabIndex) {
@@ -14,24 +15,20 @@ function showTab(tabIndex) {
     const currentTab = tabs[tabIndex];
     currentTab.style.display = "block"; // Activate tab
 
-    if (currentTab.id === "balance") {
-        setupBalance(currentTab);
-    }
+    // Hide/show suggested quality master list 
+    document.getElementById("desiredQualitiesMasterList").style.display = currentTab.className.includes("desiredQualities") ? "block" : "none";
+    document.getElementById("challengingQualitiesMasterList").style.display = currentTab.className.includes("challengingQualities") ? "block" : "none";
 
-    const qualitySuggestionListDiv = currentTab.getElementsByClassName("qualitySuggestions")?.item(0);
-    if (qualitySuggestionListDiv && qualitySuggestionListDiv.children.length === 0) {
-        const qualityListDiv = currentTab.getElementsByClassName("qualityList")[0]
-        populateQualitySuggestions(qualitySuggestionListDiv, qualityListDiv);
+    if (currentTab.id === "balance") {
+        setupBalance();
     }
 
     // update the Previous/Next buttons:
     const nextButton = document.getElementById("nextBtn");
     const prevButton = document.getElementById("prevBtn");
-    if (tabIndex > 1) {
-        prevButton.style.display = "inline";
-    } else {
-        prevButton.style.display = "none";
-    }
+
+    prevButton.style.display = tabIndex > 1 ? "inline" : "none";
+
     if (tabIndex !== 0) {
         nextButton.innerHTML = "Next";
     }
@@ -56,30 +53,46 @@ function navigateTab(action) { // action: 1 for next tab, -1 for previous tab
     showTab(currentTabIndex);
 }
 
-function populateQualitySuggestions(qualitySuggestionListDiv) { // I hate JS. So much
-    const qualityListDiv = qualitySuggestionListDiv.parentElement.getElementsByClassName("qualityList")[0];
+function populateQualitySuggestions() { // I hate JS. So much
+    // Populate desired quality master list
+    const desiredSuggestionsDiv = document.getElementById("desiredQualitiesMasterList");
+    const desiredQualityMasterListDiv = desiredSuggestionsDiv.getElementsByClassName("qualityList").item(0);
+    for (const qualityName of desiredQualityMasterList) { // Where does this come from, you may ask... The answer is (JS) magic!
+        addQualityToSuggestionListDiv(desiredQualityMasterListDiv, qualityName);
+    }
 
-    for (const qualityName of qualityMasterList) { // Where does this come from, you may ask... The answer is (JS) magic!
-        addToQualityListDiv(
-            qualitySuggestionListDiv,
-            qualityName,
-            "qualitySelection",
-            () => addToQualityListDiv(qualityListDiv, qualityName, "qualityActive", () => removeQualityFrom(qualityListDiv, qualityName))
-        );
+    // Populate challenging quality master list
+    const challengeSuggestionsDiv = document.getElementById("challengingQualitiesMasterList");
+    const challengingQualityMasterListDiv = challengeSuggestionsDiv.getElementsByClassName("qualityList").item(0);
+    for (const qualityName of challengingQualityMasterList) {
+        addQualityToSuggestionListDiv(challengingQualityMasterListDiv, qualityName);
     }
 }
 
-function addQualityTo(inputId, divId) { // This is on a button press
-    const input = document.getElementById(inputId);
+function addQuality() { // This is on a button press
+    const currentTab = document.getElementsByClassName("tab")[currentTabIndex];
+    const qualityListDiv = currentTab.getElementsByClassName("qualityList").item(0);
+    const input = currentTab.getElementsByTagName("input").item(0);
+
     const qualityName = input?.value;
     if (!qualityName) return;
 
-    const qualityListDiv = document.getElementById(divId) ?? throwError(`Couldn't find div with ID ${divId}`);
-    addToQualityListDiv(qualityListDiv, qualityName, "qualityActive", () => removeQualityFrom(qualityListDiv, qualityName));
+    addQualityToUserListDiv(qualityListDiv, qualityName);
     input.value = "";
     input.focus();
 }
 
+function addQualityToCurrentTab(qualityName) {
+    const currentTab = document.getElementsByClassName("tab")[currentTabIndex];
+    const qualityListDiv = currentTab.getElementsByClassName("qualityList").item(0);
+    addQualityToUserListDiv(qualityListDiv, qualityName);
+}
+function addQualityToSuggestionListDiv(listDiv, qualityName) {
+    return addToQualityListDiv(listDiv, qualityName, "qualitySelection", () => addQualityToCurrentTab(qualityName))
+}
+function addQualityToUserListDiv(listDiv, qualityName) {
+    return addToQualityListDiv(listDiv, qualityName, "qualityActive", () => removeQualityFrom(listDiv, qualityName))
+}
 function addToQualityListDiv(listDiv, qualityName, className = "", onClick = null) {
     if (qualityExists(listDiv.children, qualityName)) return;
 
@@ -101,13 +114,13 @@ function removeQualityFrom(listDiv, qualityName) {
 }
 
 function validatePriorityList() {
-    const priorityRow = Array.from(document.getElementById("priorityList").children);
+    const priorityRow = Array.from(document.getElementsByClassName("priorityDataColumn"));
     return priorityRow.filter(c => c.innerText.includes("[EMPTY]")).length === 0;
 }
 
-function setupBalance(currentTab) {
+function setupBalance() {
     const challengingListDiv = document.getElementById("challengingList");
-    const finalChallengingListDiv = currentTab.querySelector("#challenging");
+    const finalChallengingListDiv = document.getElementById("challenging");
     finalChallengingListDiv.replaceChildren();
 
     for (const challengeEle of challengingListDiv.children) {
@@ -117,30 +130,30 @@ function setupBalance(currentTab) {
         finalChallengingListDiv.appendChild(qualityListItem);
     }
 
-    const balanceDiv = currentTab.querySelector("#balanced");
+    const balanceDiv = document.getElementById("balanced");
     balanceDiv.replaceChildren();
 
-    const desired = Array.from(document.getElementById("desiredList").children);
-    const married = Array.from(document.getElementById("marriedList").children);
-    const roleModel = Array.from(document.getElementById("roleModelList").children);
-    const yourQualities = Array.from(document.getElementById("yourQualityList").children);
-    const allOtherQualities = desired.concat(married, roleModel, yourQualities);
+    const qualityListTabs = document.getElementsByClassName("desiredQualities");
     const qualityCache = {};
 
-    for (const qualityEle of allOtherQualities) {
-        if (qualityCache[qualityEle.innerText]) continue;
+    for (const qualityListTab of qualityListTabs) {
+        const qualityListDiv = qualityListTab.getElementsByClassName("qualityList").item(0);
 
-        qualityCache[qualityEle.innerText] = true;
-        const qualityButton = document.createElement("button");
-        qualityButton.type = "button";
-        qualityButton.className = "qualityListItem qualitySelection";
-        qualityButton.innerText = qualityEle.innerText;
-        qualityButton.onclick = () => toggleQualitySelect(qualityButton);
-        balanceDiv.appendChild(qualityButton);
+        for (const qualityEle of qualityListDiv.children) {
+            if (qualityCache[qualityEle.innerText]) continue;
+
+            qualityCache[qualityEle.innerText] = true;
+            const qualityButton = document.createElement("button");
+            qualityButton.type = "button";
+            qualityButton.className = "qualityListItem qualitySelection";
+            qualityButton.innerText = qualityEle.innerText;
+            qualityButton.onclick = () => toggleQualitySelect(qualityButton);
+            balanceDiv.appendChild(qualityButton);
+        }
     }
 
-    const warningMessage = document.getElementById("lowTraitsWarning"); // THIS ISN"T WORKING NEED TO FIX 
-    warningMessage.style.display = balanceDiv.children.length < 10 ? "inline" : "block";
+    const warningMessage = document.getElementById("lowTraitsWarning");
+    warningMessage.style.display = balanceDiv.children.length < 10 ? "block" : "none";
 }
 
 function toggleQualitySelect(qualityButton) {
@@ -236,10 +249,10 @@ function swap(priorityList, index1, index2) {
 }
 
 function populateFinalQualities() {
-    const priorityRow = document.getElementById("priorityList");
-    const finalQualities = document.getElementById("finalQualities");
+    const priorities = document.getElementsByClassName("priorityDataColumn");
+    const finalQualities = document.getElementById("finalQualities").children;
     for (let i = 0; i < 10; i++) {
-        finalQualities[i].innerHTML = priorityRow[i].innerHTML;
+        finalQualities[i].innerHTML = priorities[i].innerHTML;
     }
 }
 
